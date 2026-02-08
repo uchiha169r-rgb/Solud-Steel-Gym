@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solid Steel Gym | Build Strength. Burn Fat.</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VISUAL DESIGN SYSTEM --- */
+        :root {
+            --primary-pink: #ff80bf;
+            --primary-blue: #00e5ff;
+            --accent-steel: #2c3e50;
+            --highlight-red: #ff3131; /* High Energy Red for CTAs */
+            --dark-bg: #111111;
+            --card-bg: #1a1a1a;
+            --text-white: #ffffff;
+            --text-grey: #cccccc;
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding { padding: 80px 0; }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-pink), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-family: var(--font-head);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+        }
+
+        .btn-primary {
+            background: var(--highlight-red);
+            color: white;
+            box-shadow: 0 0 15px rgba(255, 49, 49, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #d60000;
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 49, 49, 0.7);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: var(--dark-bg);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary-blue); }
+
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-top: -80px; /* Offset header */
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-grey);
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* --- WHY CHOOSE US --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary-pink), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- SERVICES --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            position: relative;
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            group: hover;
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover img { transform: scale(1.1); }
+
+        .service-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .service-overlay h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        /* --- TIMINGS --- */
+        .timings-section {
+            background: var(--card-bg);
+            border-left: 5px solid var(--primary-pink);
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .time-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+            padding: 15px 0;
+            font-size: 1.2rem;
+            font-family: var(--font-head);
+        }
+
+        .status-open { color: #00ff00; }
+        .status-closed { color: #ff0000; }
+
+        /* --- FREE TRIAL (High Conversion) --- */
+        .free-trial {
+            background: linear-gradient(45deg, #111, #222);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--highlight-red);
+            text-align: center;
+        }
+        
+        .free-trial::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(255,49,49,0.1) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        /* --- MEMBERSHIPS --- */
+        .plan-card {
+            background: #1f1f1f;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 4px solid var(--accent-steel);
+            transition: 0.3s;
+        }
+
+        .plan-card:hover {
+            border-top: 4px solid var(--primary-pink);
+            transform: translateY(-5px);
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonial-card {
+            background: #252525;
+            padding: 25px;
+            border-radius: 8px;
+            font-style: italic;
+        }
+        .stars { color: gold; margin-bottom: 10px; }
+
+        /* --- LOCATION --- */
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            filter: grayscale(100%) invert(92%) contrast(83%);
+        }
+
+        /* --- SOCIAL GRID --- */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        .social-item { height: 200px; background: #333; overflow: hidden; }
+        .social-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #000;
+            padding: 50px 0 20px;
+            border-top: 3px solid var(--primary-blue);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-logo img { width: 150px; margin-bottom: 20px; }
+        .social-icons a {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: white;
+        }
+        .social-icons a:hover { color: var(--primary-pink); }
+
+        /* --- MODAL (BOOKING & PAGES) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 40px;
+            border: 1px solid var(--primary-blue);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover { color: #fff; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--primary-blue); font-weight: bold; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+        }
+        .form-group input:focus { border-color: var(--primary-pink); outline: none; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .cta-group { flex-direction: column; }
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                background: var(--dark-bg);
+                height: 100vh;
+                width: 70%;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 50px;
+                transition: 0.3s;
+                border-left: 2px solid var(--primary-pink);
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: block; color: white; }
+            .social-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <!-- Ensure input_file_0.png is in the same folder -->
+                    <img src="input_file_0.png" alt="Solid Steel Gym Logo"> 
+                    <div class="logo-text">
+                        <span style="color: var(--primary-pink);">SOLID</span> 
+                        <span style="color: var(--primary-blue);">STEEL</span>
+                    </div>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#timings">Timings</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="javascript:void(0)" onclick="openPage('contact')">Contact</a></li>
+                    <li><a href="javascript:void(0)" onclick="openBooking()" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">Join Now</a></li>
+                </ul>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Solid Steel Gym</h1>
+            <h2 class="gradient-text">Build Strength. Burn Fat. Move With Power.</h2>
+            <p>Gym • CrossFit • Aerobics • Dance Fitness<br>For Beginners to Hardcore Athletes</p>
+            <div class="cta-group">
+                <button onclick="openBooking('Free Trial')" class="btn btn-primary">Book Free Trial</button>
+                <button onclick="openBooking('Membership')" class="btn btn-secondary">Join Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px;">Why Choose <span class="gradient-text">Solid Steel</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Experienced Trainers</h3>
+                    <p>Guidance that pushes your limits safely.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-pump-soap"></i>
+                    <h3>Clean & Hygienic</h3>
+                    <p>Sanitized facility for worry-free workouts.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Beginner & Advanced</h3>
+                    <p>Programs tailored for every fitness level.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>High Energy</h3>
+                    <p>Atmosphere that keeps you motivated.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section-padding" style="background: #161616;">
+        <div class="container">
+            <h2 style="margin-bottom: 40px;">Our <span style="color: var(--primary-blue);">Training Programs</span></h2>
+            <div class="services-grid">
+                <!-- Using Unsplash placeholders for real gym vibes -->
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" alt="Gym">
+                    <div class="service-overlay">
+                        <h3>Gym Training</h3>
+                        <p>Strength, Muscle Building & Fat Loss.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1517963879466-e825c190defc?q=80&w=2048&auto=format&fit=crop" alt="CrossFit">
+                    <div class="service-overlay">
+                        <h3>CrossFit</h3>
+                        <p>High intensity functional workouts.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop" alt="Aerobics">
+                    <div class="service-overlay">
+                        <h3>Aerobics</h3>
+                        <p>Stamina, flexibility and heart health.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?q=80&w=2070&auto=format&fit=crop" alt="Dance Fitness">
+                    <div class="service-overlay">
+                        <h3>Dance Fitness</h3>
+                        <p>Zumba, Bollywood & Fun Fat Burning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMINGS -->
+    <section id="timings" class="section-padding">
+        <div class="container">
+            <div class="timings-section">
+                <h2><i class="far fa-clock"></i> GYM TIMINGS</h2>
+                <div class="time-row">
+                    <span>Monday – Saturday</span>
+                    <span>05:00 AM – 10:00 PM <span class="status-open">●</span></span>
+                </div>
+                <div class="time-row">
+                    <span>Sunday</span>
+                    <span class="status-closed">CLOSED ●</span>
+                </div>
+                <p style="margin-top: 20px; color: var(--text-grey);">*Morning & Evening Batches Available</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FREE TRIAL -->
+    <section class="section-padding free-trial">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h2 style="font-size: 3rem; margin-bottom: 10px;">🎉 1 DAY FREE TRIAL</h2>
+            <p style="font-size: 1.5rem; margin-bottom: 30px;">Train once. Decide later.</p>
+            <button onclick="openBooking('Free Trial')" class="btn btn-primary" style="font-size: 1.3rem;">BOOK FREE TRIAL TODAY</button>
+        </div>
+    </section>
+
+    <!-- MEMBERSHIPS -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 50px;">Membership Plans</h2>
+            <div class="features-grid">
+                <div class="plan-card">
+                    <h3>Monthly</h3>
+                    <p>Flexible commitment</p>
+                    <button onclick="openBooking('Monthly Plan')" class="btn btn-secondary" style="margin-top: 20px;">Inquire</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Quarterly</h3>
+                    <p>Commit to results</p>
+                    <button onclick="openBooking('Quarterly Plan')" class="btn btn-secondary" style="margin-top: 20px;">Inquire</button>
+                </div>
+                <div class="plan-card">
+                    <h3>Personal Training</h3>
+                    <p>1-on-1 Guidance</p>
+                    <button onclick="openBooking('Personal Training')" class="btn btn-secondary" style="margin-top: 20px;">Inquire</button>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <button onclick="openPage('contact')" class="btn btn-primary">CONTACT FOR BEST OFFERS</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section-padding" style="background: #161616;">
+        <div class="container">
+            <h2 style="margin-bottom: 30px;">What Members Say</h2>
+            <div class="features-grid">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Lost 6 kg in 2 months. Trainers are very supportive and push you to do your best."</p>
+                    <h4 style="margin-top: 15px; color: var(--primary-pink);">- Rahul S.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Best CrossFit workouts in the area. The equipment is solid and the vibe is electric!"</p>
+                    <h4 style="margin-top: 15px; color: var(--primary-blue);">- Priya M.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Finally a gym that is clean, professional and not overcrowded. Highly recommend."</p>
+                    <h4 style="margin-top: 15px; color: var(--text-grey);">- Amit K.</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & SOCIAL -->
+    <section class="section-padding">
+        <div class="container">
+            <h2>Find Us Here</h2>
+            <p style="margin-bottom: 20px;">Easy to reach location with parking available.</p>
+            <div class="map-container">
+                <!-- Generic Google Map Embed pointing to the area, button below opens specific link -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.688052525!2d77.2090!3d28.6139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDM2JzUwLjAiTiA3N8KwMTInMzIuNCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 20px; flex-wrap: wrap;">
+                <a href="https://maps.app.goo.gl/KnnwT3HMB4WToPzr9" target="_blank" class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> OPEN IN GOOGLE MAPS</a>
+                <a href="tel:+916283088251" class="btn btn-secondary"><i class="fas fa-phone-alt"></i> CALL NOW</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container" style="padding: 40px 20px;">
+            <h3 style="margin-bottom: 20px;">Follow us on Instagram</h3>
+        </div>
+        <div class="social-grid">
+            <div class="social-item"><img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Gym"></div>
+            <div class="social-item"><img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Workout"></div>
+            <div class="social-item"><img src="https://images.unsplash.com/photo-1534368959876-26bf73702209?q=80&w=2070&auto=format&fit=crop" alt="Crossfit"></div>
+            <div class="social-item"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=2069&auto=format&fit=crop" alt="Fitness"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="input_file_0.png" alt="Solid Steel Gym">
+                    <p style="color: #888;">Professional. Powerful. Disciplined.<br>Join the fitness revolution today.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul style="margin-top: 15px; line-height: 2;">
+                        <li><a href="#" onclick="openPage('terms')">Terms & Conditions</a></li>
+                        <li><a href="#" onclick="openPage('terms')">Privacy Policy</a></li>
+                        <li><a href="#" onclick="openPage('copyright')">Copyright</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p style="margin-top: 15px; color: #aaa;">
+                        <i class="fas fa-phone"></i> +91 62830 88251<br>
+                        <i class="fas fa-map-marker-alt"></i> Solid Steel Gym, India
+                    </p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #333; padding-top: 20px; text-align: center; color: #666; font-size: 0.9rem;">
+                &copy; 2024 Solid Steel Gym. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: BOOKING -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModals()">&times;</span>
+            <h2 style="color: var(--primary-pink); margin-bottom: 20px;">Book Your Session</h2>
+            <form onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="b_name" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="b_phone" required placeholder="+91 XXXXX XXXXX">
+                </div>
+                <div class="form-group">
+                    <label>Interest</label>
+                    <select id="b_interest">
+                        <option value="Free Trial">Free Trial</option>
+                        <option value="Monthly Membership">Monthly Membership</option>
+                        <option value="CrossFit">CrossFit</option>
+                        <option value="Dance/Aerobics">Dance/Aerobics</option>
+                        <option value="Personal Training">Personal Training</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">SEND REQUEST VIA WHATSAPP</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: GENERIC PAGES (Contact/Terms) -->
+    <div id="pageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModals()">&times;</span>
+            <div id="pageContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Modal Logic
+        const bookingModal = document.getElementById('bookingModal');
+        const pageModal = document.getElementById('pageModal');
+
+        function openBooking(interest = 'Free Trial') {
+            document.getElementById('b_interest').value = interest;
+            bookingModal.style.display = 'block';
+        }
+
+        function closeModals() {
+            bookingModal.style.display = 'none';
+            pageModal.style.display = 'none';
+        }
+
+        // WhatsApp Integration for Booking
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('b_name').value;
+            const phone = document.getElementById('b_phone').value;
+            const interest = document.getElementById('b_interest').value;
+
+            // Booking number: +916391925933
+            const destination = "916391925933";
+            const message = `Hello Solid Steel Gym,%0A%0AI want to join/book a trial.%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Interest:* ${interest}%0A%0APlease get back to me.`;
+
+            window.open(`https://wa.me/${destination}?text=${message}`, '_blank');
+            closeModals();
+        }
+
+        // Dynamic Page Content (SPA feel)
+        function openPage(pageType) {
+            const contentDiv = document.getElementById('pageContent');
+            let content = "";
+
+            if(pageType === 'contact') {
+                content = `
+                    <h2>Contact Us</h2>
+                    <p style="margin-top:10px;">Reach out for inquiries or assistance.</p>
+                    <div style="margin-top: 20px; font-size: 1.2rem;">
+                        <p><i class="fas fa-phone-alt"></i> <a href="tel:+916283088251" style="color:var(--primary-pink)">+91 62830 88251</a></p>
+                        <p style="margin-top:10px;"><i class="fas fa-envelope"></i> contact@solidsteelgym.com</p>
+                        <p style="margin-top:10px;"><i class="fas fa-map-marker-alt"></i> Use the Google Map section.</p>
+                    </div>
+                `;
+            } else if (pageType === 'terms') {
+                content = `
+                    <h2>Terms & Conditions</h2>
+                    <div style="margin-top: 15px; height: 300px; overflow-y: scroll; font-size: 0.9rem; color: #ccc;">
+                        <p><strong>1. Membership:</strong> Memberships are non-transferable and non-refundable.</p><br>
+                        <p><strong>2. Conduct:</strong> Members must respect equipment and other members. Loud abusive language is not tolerated.</p><br>
+                        <p><strong>3. Safety:</strong> Use equipment at your own risk. Consult a trainer for guidance.</p><br>
+                        <p><strong>4. Dress Code:</strong> Proper gym attire and shoes are mandatory.</p><br>
+                        <p><strong>5. Personal Belongings:</strong> Management is not responsible for lost items.</p>
+                    </div>
+                `;
+            } else if (pageType === 'copyright') {
+                content = `
+                    <h2>Copyright Notice</h2>
+                    <p style="margin-top:15px;">© ${new Date().getFullYear()} Solid Steel Gym.</p>
+                    <p style="margin-top:10px;">All content, imagery, and logo concepts are the property of Solid Steel Gym. Unauthorized reproduction is prohibited.</p>
+                `;
+            }
+
+            contentDiv.innerHTML = content;
+            pageModal.style.display = 'block';
+        }
+
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            if (event.target == bookingModal) bookingModal.style.display = "none";
+            if (event.target == pageModal) pageModal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
